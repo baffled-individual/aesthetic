@@ -1,5 +1,5 @@
 // Bump VERSION on every release (and keep it in sync with the version shown in More > About).
-const VERSION="1.3.1",PREFIX="baffled-app-",CACHE=PREFIX+VERSION,ASSETS=["./","index.html","manifest.webmanifest","icon.svg"];
+const VERSION="1.3.2",PREFIX="baffled-app-",CACHE=PREFIX+VERSION,ASSETS=["./","index.html","manifest.webmanifest","icon.svg"];
 // Install: download every asset fresh (bypassing HTTP cache) into a NEW versioned cache. All-or-nothing:
 // if anything fails, the partial cache is deleted and the old version keeps running.
 self.addEventListener("install",e=>e.waitUntil((async()=>{try{const c=await caches.open(CACHE);await Promise.all(ASSETS.map(async u=>{const r=await fetch(new Request(u,{cache:"reload"}));if(!r.ok)throw new Error(u+" "+r.status);await c.put(u,r)}))}catch(err){await caches.delete(CACHE);throw err}})()));
